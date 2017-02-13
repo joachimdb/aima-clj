@@ -108,8 +108,6 @@
   [x var bindings]
   (unify-var var x bindings))
 
-
-
 (defn unify
   "See if x and y match with given bindings.  If they do,
   return a binding list that would make them equal [p 303]."
@@ -118,12 +116,31 @@
   ([x y bindings]
    (unify* x y bindings)))
 
-
 (defn unifier
  "Return something that unifies with both x and y (or fail)."
   [x y]
   (subst-bindings (unify x y) x))
 
 
+(defmethod unify* [java.util.Set :default]
+  [s y bindings]
+  (println s y bindings)
+  (cond (fail? bindings)
+        +fail+
+        (empty? s)
+        bindings
+        :else (first (remove fail? (map #(unify* % y bindings) s)))))
 
 
+(comment
+
+  (= (unify #{1 3 4} 1) {})
+  (fail? (unify #{1 3 4} 2))
+  (let [v (new-variable)]
+    (= (unify #{1 3 4} v) {v #{1 3 4}}))
+  (let [v (new-variable)]
+    (= (unify #{1 v 4} 7) {v 7}))
+  (fail? (unify #{1 2 4} [1 2 4]))
+
+
+  )

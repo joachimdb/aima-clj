@@ -4,7 +4,13 @@ A Clojure library provinding some basic AI algorithms and tools inspired by [aim
 
 ## Usage
 
-add leiningen dependency `[aima-clj "0.0.1"]`
+add leiningen dependency `[aima-clj "0.0.2"]`
+
+Implemented so far:
+- unification
+- simple tree search
+
+See tests for basic usage examples
 
 ## License
 
