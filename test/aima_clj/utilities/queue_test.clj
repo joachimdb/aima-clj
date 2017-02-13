@@ -6,8 +6,8 @@
 
 (deftest priority-queue-test
   (testing "priority queue"
-    (is (= (priority-queue) (second (remove-next (priority-queue)))))
-    (let [q (insert (priority-queue) 5 2 9 3)]
+    (is (= (priority) (second (remove-next (priority)))))
+    (let [q (insert (priority) 5 2 9 3)]
       (is (= 2 (first (remove-next q))))
       (is (= [2 3] (first (remove-next q 2))))      
       (is (= 5 (first (remove-next (second (remove-next q 2))))))
@@ -16,8 +16,8 @@
 
 (deftest fifo-queue-test
   (testing "fifo queue"
-    (is (= (fifo-queue) (second (remove-next (fifo-queue)))))
-    (let [q (insert (fifo-queue) 5 2 9 3)]
+    (is (= (fifo) (second (remove-next (fifo)))))
+    (let [q (insert (fifo) 5 2 9 3)]
       (is (= 5 (first (remove-next q))))
       (is (= [5 2] (first (remove-next q 2))))      
       (is (= 9 (first (remove-next (second (remove-next q 2))))))
@@ -26,8 +26,8 @@
 
 (deftest lifo-queue-test
   (testing "lifo queue"
-    (is (= (lifo-queue) (second (remove-next (lifo-queue)))))
-    (let [q (insert (lifo-queue) 5 2 9 3)]
+    (is (= (lifo) (second (remove-next (lifo)))))
+    (let [q (insert (lifo) 5 2 9 3)]
       (is (= 3 (first (remove-next q))))
       (is (= [3 9] (first (remove-next q 2))))      
       (is (= 2 (first (remove-next (second (remove-next q 2))))))

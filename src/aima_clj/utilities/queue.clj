@@ -47,19 +47,19 @@
                  [(persistent! (conj! items nil)) q]
                  (recur q (conj! items nxt))))))))
 
-(defn lifo-queue
+(defn lifo
   "Make a lifo queue"
   []
   ())
 
-(defn fifo-queue
+(defn fifo
   "Make a fifo queue"
   []
   clojure.lang.PersistentQueue/EMPTY)
 
-(defn priority-queue
+(defn priority
   ([]
-   (priority-queue identity))
+   (priority identity))
   ([k]
    (PriorityQueue. (sorted-map) k)))
 
