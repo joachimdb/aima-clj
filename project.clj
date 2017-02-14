@@ -1,4 +1,4 @@
-(defproject aima-clj "0.0.2"
+(defproject aima-clj "0.0.3"
   :description "Basic AI library inspired by AIMA"
   :url "https://github.com/joachimdb/aima-clj"
   :license {:name "Eclipse Public License"

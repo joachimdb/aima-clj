@@ -1,7 +1,8 @@
-(ns aima-clj.search.algorithms.simple-test
+(ns aima-clj.search.algorithms.tree.simple-test
   (:require  [clojure.test :refer :all]
              [aima-clj.search.core :refer :all]
              [aima-clj.search.algorithms.tree.simple :refer :all]))
+;; (remove-ns 'aima-clj.search.algorithms.simple-test)
 
 ;;; Canibal problem definition
 
@@ -50,29 +51,34 @@
     (take-the-boat state action))
   (goal-state? [this state]
     (= 0 (:m1 state) (:c1 state)))
-  (cost [_ _ _] 1)
+  (cost [this state action] 1)
   (h-cost [_ _] 0))
 
 ;;; End of Canibal problem definition
 
-(comment
-
-  (def p (CannibalProblem. 0 3 1))
-  (breadth-first p 3)
-  ((breadth-first p 5))
-  (depth-first p 5)
-
-
-  (def state (initial-state p))
-  (cannibals-can-eat? state)
-  (actions p state)
-  
-  (breadth-first (CannibalProblem. 0 3 1) 10)
-  (depth-first (CannibalProblem. 3 3 1))
-  (breadth-first (CannibalProblem. 3 3 1))
-
-  (cost (CannibalProblem. 3 3 1))
-
+(deftest simple-search-test
+  (testing "breadth first on cannibal problem"
+    (let [p (CannibalProblem. 0 3 1)]
+      (is (= (breadth-first p 3) :cut-off))
+      (is (= (:state (breadth-first p 5))
+             {:m1 0, :c1 0, :b1 0, :m2 0, :c2 3, :b2 1}))))
+  (testing "depth first on cannibal problem"
+    (let [p (CannibalProblem. 0 3 1)]
+      (is (= (depth-first p 3) :cut-off))
+      (is (= (depth-first p 5) :cut-off))))  
+  (testing "greedy search on cannibal problem"
+    (let [p (CannibalProblem. 0 3 1)]
+      (is (= (greedy p 3) :cut-off))
+      (is (= (greedy p 5) :cut-off))))
+  (testing "a* search on cannibal problem"
+    (let [p (CannibalProblem. 0 3 1)]
+      (is (= (a* p 2) :cut-off))
+      (is (= (:state (a* p 4)) {:m1 0, :c1 0, :b1 0, :m2 0, :c2 3, :b2 1}))))
+  (testing "uniform-cost search on cannibal problem"
+    (let [p (CannibalProblem. 0 3 1)]
+      (is (= (uniform-cost p 2) :cut-off))
+      (is (= (:state (uniform-cost p 4)) {:m1 0, :c1 0, :b1 0, :m2 0, :c2 3, :b2 1}))))
   )
+
 
 

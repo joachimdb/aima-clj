@@ -10,7 +10,6 @@
   ([problem q depth-limit]   
    (loop [q (insert q (make-initial-node problem))]
      (let [[node q] (remove-next q)]
-       (println (:action node) "->" (:state node))
        (cond (or (nil? node)
                  (goal-state? problem (:state node)))
              node
@@ -45,22 +44,31 @@
 
 (defn best-first
   "Search the nodes with the best evaluation first. [p 93]"
-  [problem eval-fn]
-  (general problem (priority eval-fn)))
+  ([problem eval-fn]
+   (best-first problem eval-fn -1))
+  ([problem eval-fn depth-limit]
+   (general problem (priority eval-fn) depth-limit)))
 
-(defn greedy [problem]
+(defn greedy
   "Best-first search using H (heuristic distance to goal). [p 93]"
-  (best-first problem :h-cost))
+  ([problem]
+   (greedy problem -1))
+  ([problem depth-limit]
+   (best-first problem :hcost depth-limit)))
 
 (defn a*
   "Best-first search using estimated total cost, or (F = G + H). [p 97]"
-  [problem]
-  (best-first problem :f-cost))
+  ([problem]
+   (a* problem -1))
+  ([problem depth-limit]
+   (best-first problem :fcost depth-limit)))
 
 (defn uniform-cost
   "Best-first search using the node's depth as its cost.  Discussion on [p 75]"
-  [problem]
-  (best-first problem :g-cost))
+  ([problem]
+   (uniform-cost problem -1))
+  ([problem depth-limit]
+   (best-first problem :gcost depth-limit)))
 
 
 
